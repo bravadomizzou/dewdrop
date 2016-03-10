@@ -99,7 +99,7 @@ class Select extends AbstractHelper
 
         $value = (array) $value;
 
-        if (count($value) > 1) {
+        if (count($value) > 1 || in_array('multiple', $attributes)) {
             $name .= '[]';
         }
 

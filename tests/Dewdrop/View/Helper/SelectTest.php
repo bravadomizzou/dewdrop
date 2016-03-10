@@ -55,6 +55,28 @@ class SelectTest extends BaseTestCase
         $this->assertEquals(2, $results[1]->getAttribute('value'));
     }
 
+    public function testCanRenderSelectWithNameAsArrayGivenMultipleAttribute()
+    {
+        $out = $this->view->select(
+            array(
+                'name'          => 'my_select',
+                'options'       => array(
+                    1 => 'Option 1',
+                    2 => 'Option 2'
+                ),
+                'attributes'    => [
+                    'multiple' => 'multiple'
+                ],
+                'value'         => 1
+            )
+        );
+
+        $this->assertMatchesDomQuery('select[multiple="multiple"]', $out);
+
+        $results = $this->queryDom('option[selected="selected"]', $out);
+        $this->assertEquals(1, $results[0]->getAttribute('value'));
+    }
+
     public function testCanRenderSelectWithArgumentsPassedAsArray()
     {
         $out = $this->view->select(
